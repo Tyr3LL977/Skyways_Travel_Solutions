@@ -1,0 +1,25 @@
+# Skyways Travel Solutions - GitHub Pages Config
+
+title: Skyways Travel Solutions Pvt Ltd
+description: Trusted travel company since 1985. Leisure, adventure, and business travel solutions.
+url: "https://www.skywaystravels.com"  # Replace with your actual domain
+
+# Security - disable plugins that could be exploited
+plugins: []
+safe: true
+whitelist: []
+
+# Don't expose config
+exclude:
+  - README.md
+  - .git
+  - _headers
+
+# Performance
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  startings: []
+  blanklines: false
+  profile: false

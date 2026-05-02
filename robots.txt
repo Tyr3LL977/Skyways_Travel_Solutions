@@ -1,0 +1,36 @@
+# Skyways Travel Solutions - robots.txt
+
+# Allow all legitimate search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block known bad bots and scrapers
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /
+
+# Default - allow all others
+User-agent: *
+Allow: /
+
+Sitemap: https://www.skywaystravels.com/sitemap.xml
