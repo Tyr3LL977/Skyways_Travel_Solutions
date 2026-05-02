@@ -604,6 +604,75 @@
     .footer-nav a { font-size: 0.72rem; color: rgba(253,250,246,0.35); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
     .footer-nav a:hover { color: var(--teal-lt); }
 
+    /* ── SOLO POST ── */
+    .updates-grid-single { position: relative; z-index: 1; }
+    .post-solo { display: grid; grid-template-columns: 1fr 1.4fr; border-radius: 8px; overflow: hidden; }
+    .post-solo .post-thumb { height: 100% !important; min-height: 320px; }
+    .post-solo h3 { font-size: 1.8rem !important; margin-bottom: 1rem; }
+    .post-solo .post-body { padding: 3rem; }
+    @media (max-width: 700px) {
+      .post-solo { grid-template-columns: 1fr; }
+      .post-solo .post-thumb { height: 220px !important; }
+    }
+
+    /* ── MAINTENANCE MODE ── */
+    #maintenance-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 99999;
+      background: var(--ink);
+      flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    #maintenance-overlay.active { display: flex; }
+    .maint-glow {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 40%, rgba(14,124,123,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(212,168,67,0.07) 0%, transparent 50%);
+    }
+    .maint-content { position: relative; z-index: 1; max-width: 560px; }
+    .maint-emblem {
+      width: 72px; height: 72px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; margin: 0 auto 2rem;
+      position: relative;
+    }
+    .maint-emblem::before {
+      content: ''; position: absolute; inset: 6px;
+      border: 1px solid rgba(212,168,67,0.25); border-radius: 50%;
+    }
+    .maint-label {
+      font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--teal-lt); font-weight: 600; margin-bottom: 1.2rem;
+    }
+    .maint-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 600; color: var(--white); line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    .maint-title em { font-style: italic; color: var(--gold); }
+    .maint-body {
+      font-size: 0.95rem; color: rgba(253,250,246,0.55);
+      line-height: 1.8; font-weight: 300; margin-bottom: 2.5rem;
+    }
+    .maint-contact {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1px solid rgba(212,168,67,0.25);
+      border-radius: 4px; padding: 12px 24px;
+      color: var(--gold-lt); font-size: 0.85rem; text-decoration: none;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .maint-contact:hover { border-color: var(--gold); background: rgba(212,168,67,0.06); }
+    .maint-footer {
+      margin-top: 3rem; font-size: 0.65rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(253,250,246,0.2);
+    }
+
     /* ── SCROLL REVEAL ── */
     .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -631,6 +700,28 @@
 
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       MAINTENANCE MODE OVERLAY
+       To enable:  set MAINTENANCE = true  below
+       To disable: set MAINTENANCE = false below
+       Then save & push to GitHub — done!
+  ═══════════════════════════════════════════════ -->
+  <div id="maintenance-overlay">
+    <div class="maint-glow"></div>
+    <div class="maint-content">
+      <div class="maint-emblem">✈</div>
+      <div class="maint-label">🔧 Scheduled Maintenance</div>
+      <h1 class="maint-title">We'll Be Back <em>Shortly</em></h1>
+      <p class="maint-body">
+        Our website is currently undergoing scheduled maintenance and improvements. We apologise for any inconvenience. Please check back soon — we won't be long!
+      </p>
+      <a href="mailto:skyways@slt.lk" class="maint-contact">
+        ✉️ &nbsp; Reach us at skyways@slt.lk
+      </a>
+      <div class="maint-footer">Skyways Travel Solutions Pvt Ltd · Est. 1988 · Sri Lanka 🇱🇰</div>
+    </div>
+  </div>
 
   <!-- NAV -->
   <nav id="nav">
@@ -751,41 +842,15 @@
         <p class="body-text body-text-light">Travel offers, destination features, and company news from Skyways.</p>
       </div>
     </div>
-    <div class="updates-grid reveal">
-      <div class="post featured">
-        <div class="post-thumb t1">🌿</div>
+    <div class="updates-grid-single reveal">
+      <div class="post post-solo">
+        <div class="post-thumb t2" style="height:320px; font-size:6rem;">🇹🇭</div>
         <div class="post-body">
-          <div class="post-tag">🇱🇰 Featured · Sri Lanka</div>
-          <h3>Discover the Pearl of the Indian Ocean — Our Island, Your Getaway</h3>
-          <p>From the misty hills of Nuwara Eliya to the golden beaches of Mirissa, the ancient temples of Anuradhapura to vibrant Colombo — let us show you Sri Lanka like never before.</p>
-          <div class="post-date">May 2025</div>
-        </div>
-      </div>
-      <div class="post">
-        <div class="post-thumb t2" style="height:140px;font-size:2.5rem;">🗺️</div>
-        <div class="post-body">
-          <div class="post-tag">✈️ New Package</div>
-          <h3>Europe Grand Tour — 12 Cities, 14 Days</h3>
-          <p>Paris to Prague in one sweeping journey. Now departing from Colombo.</p>
-          <div class="post-date">April 2025</div>
-        </div>
-      </div>
-      <div class="post">
-        <div class="post-thumb t3" style="height:140px;font-size:2.5rem;">🐠</div>
-        <div class="post-body">
-          <div class="post-tag">🌊 Special Offer</div>
-          <h3>Maldives Escape — Special Rates for Sri Lankans</h3>
-          <p>Exclusive resort packages with early bird pricing for 2025.</p>
-          <div class="post-date">March 2025</div>
-        </div>
-      </div>
-      <div class="post">
-        <div class="post-thumb t4" style="height:140px;font-size:2.5rem;">🎉</div>
-        <div class="post-body">
-          <div class="post-tag">🏅 Company News</div>
-          <h3>Celebrating 36 Years of Skyways Travel Solutions</h3>
-          <p>Since 1988 we've been Sri Lanka's travel partner. Thank you for your trust.</p>
-          <div class="post-date">January 2025</div>
+          <div class="post-tag">✨ Featured Tour · End-to-End Guided</div>
+          <h3>Thailand Uncovered — A Complete Guided Journey from Colombo</h3>
+          <p>From the golden temples of Bangkok to the turquoise waters of Krabi, the night markets of Chiang Mai to the shores of Koh Samui — Skyways takes you through the very best of Thailand, end to end, with expert guides by your side every step of the way. Flights, hotels, transfers, and experiences all taken care of. All you need to do is show up and explore.</p>
+          <p style="margin-top:1rem; color: rgba(253,250,246,0.35); font-size:0.8rem;">Full itinerary and dates coming soon. Contact us to register your interest.</p>
+          <div class="post-date">Coming Soon · 2025</div>
         </div>
       </div>
     </div>
@@ -826,12 +891,12 @@
       <div class="reveal">
         <div class="contact-items">
           <div class="ci"><div class="ci-icon">📍</div><div><div class="ci-label">Office Address</div><div class="ci-val">Your Street, Your City<br/>Sri Lanka</div></div></div>
-          <div class="ci"><div class="ci-icon">📞</div><div><div class="ci-label">Telephone</div><div class="ci-val">+94 XX XXX XXXX<br/>+94 XX XXX XXXX</div></div></div>
-          <div class="ci"><div class="ci-icon">✉️</div><div><div class="ci-label">Email</div><div class="ci-val">info@skywaystravels.lk<br/>bookings@skywaystravels.lk</div></div></div>
+          <div class="ci"><div class="ci-icon">📞</div><div><div class="ci-label">Telephone</div><div class="ci-val">+94 11 250 5430<br/>+94 71 272 4749</div></div></div>
+          <div class="ci"><div class="ci-icon">✉️</div><div><div class="ci-label">Email</div><div class="ci-val">skyways@slt.lk</div></div></div>
           <div class="ci"><div class="ci-icon">🕐</div><div><div class="ci-label">Office Hours</div><div class="ci-val">Mon – Fri: 9:00 AM – 6:00 PM<br/>Saturday: 9:00 AM – 1:00 PM</div></div></div>
         </div>
         <div class="social-row">
-          <a href="#" class="social-btn" title="Facebook">📘</a>
+          <a href="https://facebook.com/skywaystravels" class="social-btn" title="Facebook">📘</a>
           <a href="#" class="social-btn" title="Instagram">📸</a>
           <a href="#" class="social-btn" title="WhatsApp">💬</a>
           <a href="#" class="social-btn" title="LinkedIn">💼</a>
@@ -865,6 +930,16 @@
   </footer>
 
   <script>
+    // ═══════════════════════════════════════════
+    // MAINTENANCE MODE — change false to true to
+    // activate, then save & push to GitHub
+    const MAINTENANCE = false;
+    // ═══════════════════════════════════════════
+    if (MAINTENANCE) {
+      document.getElementById('maintenance-overlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
     // Custom cursor
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
