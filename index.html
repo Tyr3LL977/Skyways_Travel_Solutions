@@ -10,684 +10,224 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --ink:       #0a0f1e;
-      --deep:      #0f1f35;
-      --ocean:     #1a3a5c;
-      --teal:      #0e7c7b;
-      --teal-lt:   #14a8a7;
-      --gold:      #d4a843;
-      --gold-lt:   #ecc96a;
-      --sand:      #f5ede0;
-      --white:     #fdfaf6;
-      --mist:      rgba(253,250,246,0.07);
+      --ink:     #0a0f1e;
+      --deep:    #0f1f35;
+      --ocean:   #1a3a5c;
+      --teal:    #0e7c7b;
+      --teal-lt: #14a8a7;
+      --gold:    #d4a843;
+      --gold-lt: #ecc96a;
+      --sand:    #f5ede0;
+      --white:   #fdfaf6;
+      --mist:    rgba(253,250,246,0.07);
     }
 
     html { scroll-behavior: smooth; }
+    body { font-family: 'Outfit', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; cursor: none; }
 
-    body {
-      font-family: 'Outfit', sans-serif;
-      background: var(--white);
-      color: var(--ink);
-      overflow-x: hidden;
-      cursor: none;
-    }
-
-    /* ── CUSTOM CURSOR ── */
-    .cursor {
-      width: 10px; height: 10px;
-      background: var(--gold);
-      border-radius: 50%;
-      position: fixed; top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: transform 0.1s, width 0.2s, height 0.2s;
-      mix-blend-mode: difference;
-    }
-    .cursor-ring {
-      width: 36px; height: 36px;
-      border: 1.5px solid var(--gold);
-      border-radius: 50%;
-      position: fixed; top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
-      transition: transform 0.12s ease, width 0.25s, height 0.25s;
-      opacity: 0.6;
-    }
+    /* ── CURSOR ── */
+    .cursor { width:10px; height:10px; background:var(--gold); border-radius:50%; position:fixed; top:0; left:0; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform 0.1s; mix-blend-mode:difference; }
+    .cursor-ring { width:36px; height:36px; border:1.5px solid var(--gold); border-radius:50%; position:fixed; top:0; left:0; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:transform 0.12s ease; opacity:0.6; }
 
     /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5%;
-      height: 76px;
-      transition: background 0.4s, box-shadow 0.4s;
-    }
-    nav.scrolled {
-      background: rgba(10,15,30,0.97);
-      box-shadow: 0 1px 0 rgba(212,168,67,0.2);
-      backdrop-filter: blur(12px);
-    }
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 5%; height:76px; transition:background 0.4s, box-shadow 0.4s; }
+    nav.scrolled { background:rgba(10,15,30,0.97); box-shadow:0 1px 0 rgba(212,168,67,0.2); backdrop-filter:blur(12px); }
 
-    .nav-brand {
-      display: flex; align-items: center; gap: 14px;
-      text-decoration: none;
-    }
-    .nav-logo-img {
-      height: 42px;
-      width: auto;
-      border-radius: 4px;
-      object-fit: contain;
-      background: white;
-      padding: 2px 6px;
-    }
-    .nav-wordmark {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--white);
-      letter-spacing: 0.02em;
-      line-height: 1.2;
-    }
-    .nav-wordmark small {
-      display: block;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-weight: 400;
-    }
+    .nav-brand { display:flex; align-items:center; gap:14px; text-decoration:none; }
+    .nav-emblem { width:42px; height:42px; border:1.5px solid var(--gold); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; position:relative; }
+    .nav-emblem::before { content:''; position:absolute; inset:4px; border:1px solid rgba(212,168,67,0.3); border-radius:50%; }
+    .nav-wordmark { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:600; color:var(--white); letter-spacing:0.02em; line-height:1.2; }
+    .nav-wordmark small { display:block; font-family:'Outfit',sans-serif; font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); font-weight:400; }
 
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a {
-      color: rgba(253,250,246,0.65);
-      text-decoration: none;
-      font-size: 0.78rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 500;
-      position: relative;
-      transition: color 0.25s;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute; bottom: -4px; left: 0; right: 0;
-      height: 1px;
-      background: var(--gold);
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a { color:rgba(253,250,246,0.65); text-decoration:none; font-size:0.78rem; letter-spacing:0.12em; text-transform:uppercase; font-weight:500; position:relative; transition:color 0.25s; }
+    .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:1px; background:var(--gold); transform:scaleX(0); transition:transform 0.3s ease; }
+    .nav-links a:hover { color:var(--gold); }
+    .nav-links a:hover::after { transform:scaleX(1); }
 
     /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      background: var(--ink);
-      position: relative;
-      display: flex; flex-direction: column;
-      overflow: hidden;
-    }
+    .hero { min-height:100vh; background:var(--ink); position:relative; display:flex; flex-direction:column; overflow:hidden; }
+    .hero-waves { position:absolute; inset:0; background: radial-gradient(ellipse 100% 70% at 100% 0%, rgba(14,124,123,0.18) 0%, transparent 55%), radial-gradient(ellipse 70% 100% at 0% 100%, rgba(26,58,92,0.5) 0%, transparent 60%); }
+    .particles { position:absolute; inset:0; overflow:hidden; }
+    .particle { position:absolute; width:2px; height:2px; background:var(--gold); border-radius:50%; opacity:0; animation:float-up var(--dur,8s) var(--delay,0s) infinite ease-in; }
+    @keyframes float-up { 0%{opacity:0;transform:translateY(0)} 10%{opacity:0.6} 90%{opacity:0.2} 100%{opacity:0;transform:translateY(-100vh) translateX(var(--drift,20px))} }
+    .hero-stripe { position:absolute; top:-10%; right:-5%; width:55%; height:130%; background:linear-gradient(135deg,rgba(14,124,123,0.06) 0%,transparent 60%); transform:skewX(-8deg); pointer-events:none; }
+    .hero-bg-text { position:absolute; bottom:-2rem; left:-1rem; font-family:'Cormorant Garamond',serif; font-size:clamp(8rem,18vw,18rem); font-weight:700; color:rgba(255,255,255,0.022); line-height:1; pointer-events:none; white-space:nowrap; }
 
-    .hero-waves {
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 100% 70% at 100% 0%, rgba(14,124,123,0.18) 0%, transparent 55%),
-        radial-gradient(ellipse 70% 100% at 0% 100%, rgba(26,58,92,0.5) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(212,168,67,0.04) 0%, transparent 70%);
-    }
+    .hero-content { position:relative; z-index:2; flex:1; display:flex; align-items:center; padding:120px 8% 80px; gap:4rem; }
+    .hero-left { flex:1; max-width:640px; }
 
-    .particles { position: absolute; inset: 0; overflow: hidden; }
-    .particle {
-      position: absolute;
-      width: 2px; height: 2px;
-      background: var(--gold);
-      border-radius: 50%;
-      opacity: 0;
-      animation: float-up var(--dur, 8s) var(--delay, 0s) infinite ease-in;
-    }
-    @keyframes float-up {
-      0%   { opacity: 0; transform: translateY(0) translateX(0); }
-      10%  { opacity: 0.6; }
-      90%  { opacity: 0.2; }
-      100% { opacity: 0; transform: translateY(-100vh) translateX(var(--drift, 20px)); }
-    }
+    .hero-pill { display:inline-flex; align-items:center; gap:10px; padding:7px 18px; border:1px solid rgba(212,168,67,0.35); border-radius:100px; background:rgba(212,168,67,0.07); margin-bottom:2.2rem; animation:fadeUp 1s ease both; }
+    .hero-pill-dot { width:6px; height:6px; background:var(--teal-lt); border-radius:50%; animation:pulse-dot 2s infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.4)} }
+    .hero-pill span { font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-lt); font-weight:500; }
 
-    .hero-stripe {
-      position: absolute;
-      top: -10%; right: -5%;
-      width: 55%; height: 130%;
-      background: linear-gradient(135deg, rgba(14,124,123,0.06) 0%, transparent 60%);
-      transform: skewX(-8deg);
-      pointer-events: none;
-    }
+    .hero-title { font-family:'Cormorant Garamond',serif; font-size:clamp(3rem,6.5vw,6rem); font-weight:300; color:var(--white); line-height:1.05; margin-bottom:2rem; animation:fadeUp 1s 0.15s ease both; }
+    .hero-title strong { font-weight:700; display:block; }
+    .hero-title em { font-style:italic; color:var(--gold); font-weight:300; }
+    .hero-sub { font-size:1rem; color:rgba(253,250,246,0.55); line-height:1.8; max-width:480px; font-weight:300; margin-bottom:3rem; animation:fadeUp 1s 0.3s ease both; }
+    .hero-actions { display:flex; gap:1rem; flex-wrap:wrap; animation:fadeUp 1s 0.45s ease both; }
 
-    .hero-bg-text {
-      position: absolute;
-      bottom: -2rem; left: -1rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(8rem, 18vw, 18rem);
-      font-weight: 700;
-      color: rgba(255,255,255,0.022);
-      line-height: 1;
-      pointer-events: none;
-      white-space: nowrap;
-      letter-spacing: -0.02em;
-    }
+    .btn-primary { background:var(--teal); color:var(--white); padding:15px 36px; border-radius:3px; font-weight:500; font-size:0.82rem; letter-spacing:0.1em; text-decoration:none; text-transform:uppercase; transition:background 0.25s,transform 0.2s; position:relative; overflow:hidden; }
+    .btn-primary::before { content:''; position:absolute; inset:0; background:var(--teal-lt); transform:scaleX(0); transform-origin:left; transition:transform 0.35s ease; }
+    .btn-primary:hover::before { transform:scaleX(1); }
+    .btn-primary:hover { transform:translateY(-2px); }
+    .btn-primary span { position:relative; z-index:1; }
+    .btn-ghost { border:1px solid rgba(212,168,67,0.4); color:var(--gold-lt); padding:15px 36px; border-radius:3px; font-weight:500; font-size:0.82rem; letter-spacing:0.1em; text-decoration:none; text-transform:uppercase; transition:border-color 0.25s,color 0.25s,transform 0.2s; }
+    .btn-ghost:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-2px); }
 
-    .hero-content {
-      position: relative; z-index: 2;
-      flex: 1;
-      display: flex; align-items: center;
-      padding: 120px 8% 80px;
-      gap: 4rem;
-    }
+    .hero-right { display:flex; flex-direction:column; gap:1px; animation:fadeUp 1s 0.55s ease both; }
+    .hero-stat-card { background:var(--mist); border:1px solid rgba(212,168,67,0.1); padding:1.8rem 2rem; min-width:180px; position:relative; transition:background 0.3s; }
+    .hero-stat-card:first-child { border-radius:4px 4px 0 0; }
+    .hero-stat-card:last-child { border-radius:0 0 4px 4px; }
+    .hero-stat-card:hover { background:rgba(14,124,123,0.15); }
+    .hero-stat-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:2px; background:var(--teal); opacity:0; transition:opacity 0.3s; }
+    .hero-stat-card:hover::before { opacity:1; }
+    .stat-n { font-family:'Cormorant Garamond',serif; font-size:2.6rem; font-weight:700; color:var(--gold); line-height:1; }
+    .stat-l { font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(253,250,246,0.45); margin-top:4px; }
 
-    .hero-left { flex: 1; max-width: 640px; }
+    .hero-bar { position:relative; z-index:2; border-top:1px solid rgba(212,168,67,0.12); display:flex; animation:fadeUp 1s 0.65s ease both; }
+    .hero-bar-item { flex:1; padding:1.4rem 2rem; display:flex; align-items:center; gap:12px; border-right:1px solid rgba(212,168,67,0.1); transition:background 0.3s; }
+    .hero-bar-item:last-child { border-right:none; }
+    .hero-bar-item:hover { background:rgba(14,124,123,0.08); }
+    .hbi-icon { font-size:1.3rem; }
+    .hbi-text { font-size:0.78rem; color:rgba(253,250,246,0.5); font-weight:300; }
+    .hbi-text strong { display:block; color:var(--white); font-weight:500; font-size:0.82rem; }
+    .sl-tag { display:inline-flex; align-items:center; gap:6px; font-size:0.7rem; color:rgba(253,250,246,0.4); letter-spacing:0.1em; margin-top:1.2rem; animation:fadeUp 1s 0.6s ease both; }
 
-    .hero-pill {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 7px 18px;
-      border: 1px solid rgba(212,168,67,0.35);
-      border-radius: 100px;
-      background: rgba(212,168,67,0.07);
-      margin-bottom: 2.2rem;
-      animation: fadeUp 1s ease both;
-    }
-    .hero-pill-dot {
-      width: 6px; height: 6px;
-      background: var(--teal-lt);
-      border-radius: 50%;
-      animation: pulse-dot 2s infinite;
-    }
-    @keyframes pulse-dot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(1.4); }
-    }
-    .hero-pill span {
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold-lt);
-      font-weight: 500;
-    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
 
-    .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 6.5vw, 6rem);
-      font-weight: 300;
-      color: var(--white);
-      line-height: 1.05;
-      margin-bottom: 2rem;
-      animation: fadeUp 1s 0.15s ease both;
-    }
-    .hero-title strong { font-weight: 700; display: block; }
-    .hero-title em { font-style: italic; color: var(--gold); font-weight: 300; }
-
-    .hero-sub {
-      font-size: 1rem;
-      color: rgba(253,250,246,0.55);
-      line-height: 1.8;
-      max-width: 480px;
-      font-weight: 300;
-      margin-bottom: 3rem;
-      animation: fadeUp 1s 0.3s ease both;
-    }
-
-    .hero-actions {
-      display: flex; gap: 1rem; flex-wrap: wrap;
-      animation: fadeUp 1s 0.45s ease both;
-    }
-
-    .btn-primary {
-      background: var(--teal);
-      color: var(--white);
-      padding: 15px 36px;
-      border-radius: 3px;
-      font-weight: 500;
-      font-size: 0.82rem;
-      letter-spacing: 0.1em;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: background 0.25s, transform 0.2s;
-      position: relative; overflow: hidden;
-    }
-    .btn-primary::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: var(--teal-lt);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.35s ease;
-    }
-    .btn-primary:hover::before { transform: scaleX(1); }
-    .btn-primary:hover { transform: translateY(-2px); }
-    .btn-primary span { position: relative; z-index: 1; }
-
-    .btn-ghost {
-      border: 1px solid rgba(212,168,67,0.4);
-      color: var(--gold-lt);
-      padding: 15px 36px;
-      border-radius: 3px;
-      font-weight: 500;
-      font-size: 0.82rem;
-      letter-spacing: 0.1em;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: border-color 0.25s, color 0.25s, transform 0.2s;
-    }
-    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
-
-    .hero-right {
-      display: flex; flex-direction: column; gap: 1px;
-      animation: fadeUp 1s 0.55s ease both;
-    }
-    .hero-stat-card {
-      background: var(--mist);
-      border: 1px solid rgba(212,168,67,0.1);
-      padding: 1.8rem 2rem;
-      min-width: 180px;
-      position: relative;
-      transition: background 0.3s;
-    }
-    .hero-stat-card:first-child { border-radius: 4px 4px 0 0; }
-    .hero-stat-card:last-child  { border-radius: 0 0 4px 4px; }
-    .hero-stat-card:hover { background: rgba(14,124,123,0.15); }
-    .hero-stat-card::before {
-      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-      width: 2px; background: var(--teal);
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .hero-stat-card:hover::before { opacity: 1; }
-    .stat-n {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.6rem; font-weight: 700;
-      color: var(--gold); line-height: 1;
-    }
-    .stat-l {
-      font-size: 0.68rem; letter-spacing: 0.15em;
-      text-transform: uppercase; color: rgba(253,250,246,0.45); margin-top: 4px;
-    }
-
-    .hero-bar {
-      position: relative; z-index: 2;
-      border-top: 1px solid rgba(212,168,67,0.12);
-      display: flex;
-      animation: fadeUp 1s 0.65s ease both;
-    }
-    .hero-bar-item {
-      flex: 1; padding: 1.4rem 2rem;
-      display: flex; align-items: center; gap: 12px;
-      border-right: 1px solid rgba(212,168,67,0.1);
-      transition: background 0.3s;
-    }
-    .hero-bar-item:last-child { border-right: none; }
-    .hero-bar-item:hover { background: rgba(14,124,123,0.08); }
-    .hbi-icon { font-size: 1.3rem; }
-    .hbi-text { font-size: 0.78rem; color: rgba(253,250,246,0.5); font-weight: 300; }
-    .hbi-text strong { display: block; color: var(--white); font-weight: 500; font-size: 0.82rem; }
-
-    .sl-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.7rem; color: rgba(253,250,246,0.4);
-      letter-spacing: 0.1em; margin-top: 1.2rem;
-      animation: fadeUp 1s 0.6s ease both;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── SECTION BASE ── */
-    section { padding: 110px 8%; }
-
-    .label {
-      font-size: 0.68rem; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--teal);
-      font-weight: 600; margin-bottom: 0.8rem;
-    }
-    .title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.2rem, 4vw, 3.5rem);
-      font-weight: 600; color: var(--ink); line-height: 1.15; margin-bottom: 1.2rem;
-    }
-    .title em { font-style: italic; color: var(--teal); }
-    .title-light { color: var(--white); }
-    .title-light em { color: var(--gold); }
-    .body-text { font-size: 0.95rem; color: #5a6070; line-height: 1.85; font-weight: 300; max-width: 540px; }
-    .body-text-light { color: rgba(253,250,246,0.55); }
-    .rule { width: 48px; height: 2px; background: linear-gradient(90deg, var(--teal), transparent); margin: 1.2rem 0 2rem; }
-    .rule-gold { background: linear-gradient(90deg, var(--gold), transparent); }
+    /* ── SECTIONS ── */
+    section { padding:110px 8%; }
+    .label { font-size:0.68rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--teal); font-weight:600; margin-bottom:0.8rem; }
+    .title { font-family:'Cormorant Garamond',serif; font-size:clamp(2.2rem,4vw,3.5rem); font-weight:600; color:var(--ink); line-height:1.15; margin-bottom:1.2rem; }
+    .title em { font-style:italic; color:var(--teal); }
+    .title-light { color:var(--white); }
+    .title-light em { color:var(--gold); }
+    .body-text { font-size:0.95rem; color:#5a6070; line-height:1.85; font-weight:300; max-width:540px; }
+    .body-text-light { color:rgba(253,250,246,0.55); }
+    .rule { width:48px; height:2px; background:linear-gradient(90deg,var(--teal),transparent); margin:1.2rem 0 2rem; }
+    .rule-gold { background:linear-gradient(90deg,var(--gold),transparent); }
 
     /* ── ABOUT ── */
-    #about { background: var(--sand); }
-
-    .about-layout {
-      display: grid; grid-template-columns: 1.1fr 1fr;
-      gap: 7rem; align-items: center; margin-top: 4rem;
-    }
-
-    .about-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem; font-style: italic; font-weight: 300;
-      color: var(--ocean); line-height: 1.5;
-      padding: 2rem 0 2rem 2rem;
-      border-left: 3px solid var(--teal);
-      margin: 2.5rem 0;
-    }
-
-    .about-main-card {
-      background: var(--deep); border-radius: 6px;
-      padding: 3.5rem; position: relative; overflow: hidden;
-    }
-    .about-main-card::after {
-      content: '1988';
-      position: absolute; bottom: -1.5rem; right: -1rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 8rem; font-weight: 700;
-      color: rgba(212,168,67,0.08); line-height: 1; pointer-events: none;
-    }
-    .about-main-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 2px; background: linear-gradient(90deg, var(--teal), var(--gold));
-    }
-    .about-card-label {
-      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--teal-lt); margin-bottom: 1rem;
-    }
-    .about-card-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.7rem; color: var(--gold-lt);
-      font-weight: 600; margin-bottom: 1.2rem; line-height: 1.3;
-    }
-    .about-main-card p { font-size: 0.9rem; color: rgba(253,250,246,0.6); line-height: 1.8; font-weight: 300; }
-
-    .about-flags { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
-    .about-flag {
-      background: rgba(14,124,123,0.08); border: 1px solid rgba(14,124,123,0.2);
-      border-radius: 4px; padding: 1rem 1.2rem;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .flag-icon { font-size: 1.4rem; }
-    .flag-label { font-size: 0.78rem; font-weight: 500; color: var(--ink); line-height: 1.3; }
-    .flag-sub { font-size: 0.68rem; color: #8a8fa0; margin-top: 1px; }
+    #about { background:var(--sand); }
+    .about-layout { display:grid; grid-template-columns:1.1fr 1fr; gap:7rem; align-items:center; margin-top:4rem; }
+    .about-quote { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-style:italic; font-weight:300; color:var(--ocean); line-height:1.5; padding:2rem 0 2rem 2rem; border-left:3px solid var(--teal); margin:2.5rem 0; }
+    .about-main-card { background:var(--deep); border-radius:6px; padding:3.5rem; position:relative; overflow:hidden; }
+    .about-main-card::after { content:'1988'; position:absolute; bottom:-1.5rem; right:-1rem; font-family:'Cormorant Garamond',serif; font-size:8rem; font-weight:700; color:rgba(212,168,67,0.08); line-height:1; pointer-events:none; }
+    .about-main-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--teal),var(--gold)); }
+    .about-card-label { font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--teal-lt); margin-bottom:1rem; }
+    .about-card-title { font-family:'Cormorant Garamond',serif; font-size:1.7rem; color:var(--gold-lt); font-weight:600; margin-bottom:1.2rem; line-height:1.3; }
+    .about-main-card p { font-size:0.9rem; color:rgba(253,250,246,0.6); line-height:1.8; font-weight:300; }
+    .about-flags { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem; }
+    .about-flag { background:rgba(14,124,123,0.08); border:1px solid rgba(14,124,123,0.2); border-radius:4px; padding:1rem 1.2rem; display:flex; align-items:center; gap:10px; }
+    .flag-icon { font-size:1.4rem; }
+    .flag-label { font-size:0.78rem; font-weight:500; color:var(--ink); line-height:1.3; }
+    .flag-sub { font-size:0.68rem; color:#8a8fa0; margin-top:1px; }
 
     /* ── SERVICES ── */
-    #services { background: var(--white); }
-
-    .services-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: rgba(0,0,0,0.06);
-      border-radius: 6px; overflow: hidden; margin-top: 3rem;
-    }
-
-    .svc {
-      background: var(--white); padding: 3rem 2.5rem;
-      position: relative; transition: background 0.35s; overflow: hidden;
-    }
-    .svc:hover { background: #f0f9f9; }
-    .svc-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3.5rem; font-weight: 700;
-      color: rgba(14,124,123,0.1); line-height: 1; margin-bottom: 1rem;
-      transition: color 0.3s;
-    }
-    .svc:hover .svc-num { color: rgba(14,124,123,0.25); }
-    .svc-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
-    .svc h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.35rem; font-weight: 600; color: var(--ink);
-      margin-bottom: 0.8rem; line-height: 1.3;
-    }
-    .svc p { font-size: 0.85rem; color: #6a7080; line-height: 1.8; font-weight: 300; }
-    .svc-arrow {
-      display: inline-block; margin-top: 1.5rem;
-      font-size: 0.72rem; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--teal); font-weight: 500;
-      opacity: 0; transform: translateX(-8px);
-      transition: opacity 0.3s, transform 0.3s;
-    }
-    .svc:hover .svc-arrow { opacity: 1; transform: translateX(0); }
+    #services { background:var(--white); }
+    .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(0,0,0,0.06); border-radius:6px; overflow:hidden; margin-top:3rem; }
+    .svc { background:var(--white); padding:3rem 2.5rem; position:relative; transition:background 0.35s; overflow:hidden; }
+    .svc:hover { background:#f0f9f9; }
+    .svc-num { font-family:'Cormorant Garamond',serif; font-size:3.5rem; font-weight:700; color:rgba(14,124,123,0.1); line-height:1; margin-bottom:1rem; transition:color 0.3s; }
+    .svc:hover .svc-num { color:rgba(14,124,123,0.25); }
+    .svc-icon { font-size:1.8rem; margin-bottom:1rem; display:block; }
+    .svc h3 { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:600; color:var(--ink); margin-bottom:0.8rem; line-height:1.3; }
+    .svc p { font-size:0.85rem; color:#6a7080; line-height:1.8; font-weight:300; }
+    .svc-arrow { display:inline-block; margin-top:1.5rem; font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--teal); font-weight:500; opacity:0; transform:translateX(-8px); transition:opacity 0.3s,transform 0.3s; }
+    .svc:hover .svc-arrow { opacity:1; transform:translateX(0); }
 
     /* ── UPDATES ── */
-    #updates { background: var(--deep); position: relative; overflow: hidden; }
-    #updates::before {
-      content: ''; position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 100% 0%, rgba(14,124,123,0.15) 0%, transparent 50%),
-        radial-gradient(ellipse 60% 80% at 0% 100%, rgba(212,168,67,0.06) 0%, transparent 50%);
-    }
-
-    .updates-head {
-      position: relative; z-index: 1;
-      display: flex; justify-content: space-between; align-items: flex-end;
-      margin-bottom: 4rem; flex-wrap: wrap; gap: 1.5rem;
-    }
-
-    .updates-grid {
-      position: relative; z-index: 1;
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 1.5rem;
-    }
-
-    .post {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 5px; overflow: hidden;
-      transition: transform 0.35s, border-color 0.35s, background 0.35s;
-    }
-    .post:hover { transform: translateY(-5px); border-color: rgba(14,124,123,0.4); background: rgba(14,124,123,0.07); }
-    .post.featured { grid-row: span 2; display: flex; flex-direction: column; }
-
-    .post-thumb {
-      height: 200px; display: flex; align-items: center;
-      justify-content: center; font-size: 3.5rem;
-    }
-    .post.featured .post-thumb { height: 280px; font-size: 5rem; }
-    .t1 { background: linear-gradient(135deg, #0a2a40, #0e4a5a); }
-    .t2 { background: linear-gradient(135deg, #1a1a3a, #2a2060); }
-    .t3 { background: linear-gradient(135deg, #001a2a, #003a50); }
-    .t4 { background: linear-gradient(135deg, #2a1a00, #4a3000); }
-
-    .post-body { padding: 1.8rem; flex: 1; }
-    .post-tag { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal-lt); font-weight: 600; margin-bottom: 0.6rem; }
-    .post h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--white); line-height: 1.4; margin-bottom: 0.6rem; }
-    .post.featured h3 { font-size: 1.5rem; }
-    .post p { font-size: 0.82rem; color: rgba(253,250,246,0.45); line-height: 1.7; font-weight: 300; }
-    .post-date { font-size: 0.68rem; color: rgba(253,250,246,0.25); margin-top: 1rem; }
+    #updates { background:var(--deep); position:relative; overflow:hidden; }
+    #updates::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 80% 60% at 100% 0%, rgba(14,124,123,0.15) 0%, transparent 50%), radial-gradient(ellipse 60% 80% at 0% 100%, rgba(212,168,67,0.06) 0%, transparent 50%); }
+    .updates-head { position:relative; z-index:1; display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:4rem; flex-wrap:wrap; gap:1.5rem; }
+    .updates-grid-single { position:relative; z-index:1; }
+    .post { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:5px; overflow:hidden; transition:transform 0.35s,border-color 0.35s,background 0.35s; }
+    .post:hover { transform:translateY(-5px); border-color:rgba(14,124,123,0.4); background:rgba(14,124,123,0.07); }
+    .post-solo { display:grid; grid-template-columns:1fr 1.4fr; }
+    .post-solo .post-thumb { height:100% !important; min-height:320px; }
+    .post-solo h3 { font-size:1.8rem !important; margin-bottom:1rem; }
+    .post-solo .post-body { padding:3rem; }
+    .post-thumb { height:200px; display:flex; align-items:center; justify-content:center; font-size:3.5rem; }
+    .t2 { background:linear-gradient(135deg,#1a1a3a,#2a2060); }
+    .post-body { padding:1.8rem; flex:1; }
+    .post-tag { font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--teal-lt); font-weight:600; margin-bottom:0.6rem; }
+    .post h3 { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:600; color:var(--white); line-height:1.4; margin-bottom:0.6rem; }
+    .post p { font-size:0.82rem; color:rgba(253,250,246,0.45); line-height:1.7; font-weight:300; }
+    .post-date { font-size:0.68rem; color:rgba(253,250,246,0.25); margin-top:1rem; }
 
     /* ── WHY ── */
-    #why { background: var(--sand); }
-
-    .why-layout {
-      display: grid; grid-template-columns: 1fr 2fr;
-      gap: 7rem; align-items: start; margin-top: 3rem;
-    }
-
-    .why-nums {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1px; background: rgba(0,0,0,0.08);
-      border-radius: 5px; overflow: hidden;
-    }
-    .why-num-card {
-      background: var(--white); padding: 2.5rem 2rem;
-      text-align: center; transition: background 0.3s;
-    }
-    .why-num-card:hover { background: #e8f4f4; }
-    .wn-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 700; color: var(--teal); line-height: 1; }
-    .wn-label { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: #8a9aaa; margin-top: 6px; }
-
-    .why-points { display: flex; flex-direction: column; }
-    .why-point {
-      padding: 2rem 0; border-bottom: 1px solid rgba(0,0,0,0.07);
-      display: flex; gap: 2rem; align-items: flex-start;
-      transition: padding-left 0.3s;
-    }
-    .why-point:hover { padding-left: 1rem; }
-    .why-point:first-child { padding-top: 0; }
-    .wp-num { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 600; color: rgba(14,124,123,0.25); min-width: 40px; line-height: 1.2; }
-    .wp-content h4 { font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
-    .wp-content p { font-size: 0.85rem; color: #6a7080; line-height: 1.7; font-weight: 300; }
+    #why { background:var(--sand); }
+    .why-layout { display:grid; grid-template-columns:1fr 2fr; gap:7rem; align-items:start; margin-top:3rem; }
+    .why-nums { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(0,0,0,0.08); border-radius:5px; overflow:hidden; }
+    .why-num-card { background:var(--white); padding:2.5rem 2rem; text-align:center; transition:background 0.3s; }
+    .why-num-card:hover { background:#e8f4f4; }
+    .wn-num { font-family:'Cormorant Garamond',serif; font-size:3rem; font-weight:700; color:var(--teal); line-height:1; }
+    .wn-label { font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:#8a9aaa; margin-top:6px; }
+    .why-points { display:flex; flex-direction:column; }
+    .why-point { padding:2rem 0; border-bottom:1px solid rgba(0,0,0,0.07); display:flex; gap:2rem; align-items:flex-start; transition:padding-left 0.3s; }
+    .why-point:hover { padding-left:1rem; }
+    .why-point:first-child { padding-top:0; }
+    .wp-num { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:600; color:rgba(14,124,123,0.25); min-width:40px; line-height:1.2; }
+    .wp-content h4 { font-size:1rem; font-weight:600; color:var(--ink); margin-bottom:0.4rem; }
+    .wp-content p { font-size:0.85rem; color:#6a7080; line-height:1.7; font-weight:300; }
 
     /* ── CONTACT ── */
-    #contact { background: var(--ink); position: relative; overflow: hidden; }
-    #contact::before {
-      content: ''; position: absolute; top: 0; right: 0;
-      width: 50%; height: 100%;
-      background: rgba(14,124,123,0.04);
-      clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%);
-    }
-
-    .contact-layout {
-      position: relative; z-index: 1;
-      display: grid; grid-template-columns: 1fr;
-      gap: 6rem; margin-top: 4rem; align-items: start;
-      max-width: 600px;
-    }
-
-    .contact-items { display: flex; flex-direction: column; }
-    .ci {
-      display: flex; gap: 1.5rem; align-items: flex-start;
-      padding: 1.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: padding-left 0.3s;
-    }
-    .ci:hover { padding-left: 0.5rem; }
-    .ci-icon {
-      width: 44px; height: 44px; flex-shrink: 0;
-      background: rgba(14,124,123,0.15); border: 1px solid rgba(14,124,123,0.3);
-      border-radius: 4px; display: flex; align-items: center; justify-content: center;
-      font-size: 18px; transition: background 0.3s;
-    }
-    .ci:hover .ci-icon { background: rgba(14,124,123,0.3); }
-    .ci-label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal-lt); font-weight: 600; margin-bottom: 4px; }
-    .ci-val { font-size: 0.9rem; color: rgba(253,250,246,0.7); line-height: 1.6; font-weight: 300; }
-
-    .contact-map {
-      background: rgba(14,124,123,0.06); border: 1px solid rgba(14,124,123,0.15);
-      border-radius: 5px; height: 340px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 1rem; color: rgba(253,250,246,0.3);
-    }
-    .contact-map .me { font-size: 2.5rem; }
-    .contact-map p { font-size: 0.85rem; }
-    .contact-map small { font-size: 0.72rem; opacity: 0.6; }
-
-    .social-row { display: flex; gap: 1rem; margin-top: 2rem; }
-    .social-btn {
-      width: 44px; height: 44px;
-      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 4px; display: flex; align-items: center; justify-content: center;
-      font-size: 18px; text-decoration: none; transition: background 0.3s, border-color 0.3s;
-    }
-    .social-btn:hover { background: rgba(14,124,123,0.2); border-color: rgba(14,124,123,0.4); }
+    #contact { background:var(--ink); position:relative; overflow:hidden; }
+    #contact::before { content:''; position:absolute; top:0; right:0; width:50%; height:100%; background:rgba(14,124,123,0.04); clip-path:polygon(20% 0%,100% 0%,100% 100%,0% 100%); }
+    .contact-layout { position:relative; z-index:1; display:grid; grid-template-columns:1fr; gap:3rem; margin-top:4rem; max-width:600px; }
+    .contact-items { display:flex; flex-direction:column; }
+    .ci { display:flex; gap:1.5rem; align-items:flex-start; padding:1.8rem 0; border-bottom:1px solid rgba(255,255,255,0.05); transition:padding-left 0.3s; }
+    .ci:hover { padding-left:0.5rem; }
+    .ci-icon { width:44px; height:44px; flex-shrink:0; background:rgba(14,124,123,0.15); border:1px solid rgba(14,124,123,0.3); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:18px; transition:background 0.3s; }
+    .ci:hover .ci-icon { background:rgba(14,124,123,0.3); }
+    .ci-label { font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--teal-lt); font-weight:600; margin-bottom:4px; }
+    .ci-val { font-size:0.9rem; color:rgba(253,250,246,0.7); line-height:1.6; font-weight:300; }
+    .social-row { display:flex; gap:1rem; margin-top:2rem; }
+    .social-btn { width:44px; height:44px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:18px; text-decoration:none; transition:background 0.3s,border-color 0.3s; }
+    .social-btn:hover { background:rgba(14,124,123,0.2); border-color:rgba(14,124,123,0.4); }
 
     /* ── FOOTER ── */
-    footer {
-      background: #060c18;
-      border-top: 1px solid rgba(212,168,67,0.12);
-      padding: 2.5rem 8%;
-    }
-    .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: rgba(253,250,246,0.6); }
-    .footer-brand span { display: block; font-family: 'Outfit', sans-serif; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-top: 3px; font-weight: 400; }
-    .footer-copy { font-size: 0.72rem; color: rgba(253,250,246,0.25); }
-    .footer-nav { display: flex; gap: 2rem; list-style: none; }
-    .footer-nav a { font-size: 0.72rem; color: rgba(253,250,246,0.35); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
-    .footer-nav a:hover { color: var(--teal-lt); }
+    footer { background:#060c18; border-top:1px solid rgba(212,168,67,0.12); padding:2.5rem 8%; }
+    .footer-inner { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
+    .footer-brand { font-family:'Cormorant Garamond',serif; font-size:1rem; color:rgba(253,250,246,0.6); }
+    .footer-brand span { display:block; font-family:'Outfit',sans-serif; font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-top:3px; font-weight:400; }
+    .footer-copy { font-size:0.72rem; color:rgba(253,250,246,0.25); }
+    .footer-copy a { color:rgba(253,250,246,0.35); text-decoration:underline; }
+    .footer-copy a:hover { color:var(--teal-lt); }
+    .footer-nav { display:flex; gap:2rem; list-style:none; }
+    .footer-nav a { font-size:0.72rem; color:rgba(253,250,246,0.35); text-decoration:none; letter-spacing:0.08em; transition:color 0.2s; }
+    .footer-nav a:hover { color:var(--teal-lt); }
 
-    /* ── SOLO POST ── */
-    .updates-grid-single { position: relative; z-index: 1; }
-    .post-solo { display: grid; grid-template-columns: 1fr 1.4fr; border-radius: 8px; overflow: hidden; }
-    .post-solo .post-thumb { height: 100% !important; min-height: 320px; }
-    .post-solo h3 { font-size: 1.8rem !important; margin-bottom: 1rem; }
-    .post-solo .post-body { padding: 3rem; }
-    @media (max-width: 700px) {
-      .post-solo { grid-template-columns: 1fr; }
-      .post-solo .post-thumb { height: 220px !important; }
-    }
+    /* ── DISCLAIMER MODAL ── */
+    #disclaimer-modal { display:none; position:fixed; inset:0; z-index:99998; align-items:center; justify-content:center; padding:2rem; background:rgba(10,15,30,0.88); backdrop-filter:blur(8px); }
+    #disclaimer-modal.active { display:flex; }
+    .modal-box { background:var(--deep); border:1px solid rgba(212,168,67,0.25); border-radius:8px; max-width:560px; width:100%; padding:3rem; position:relative; }
+    .modal-box::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--teal),var(--gold)); border-radius:8px 8px 0 0; }
+    .modal-close { position:absolute; top:1.2rem; right:1.2rem; background:none; border:1px solid rgba(255,255,255,0.1); color:rgba(253,250,246,0.5); width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:1rem; transition:border-color 0.2s,color 0.2s; }
+    .modal-close:hover { border-color:var(--teal); color:var(--white); }
 
-    /* ── MAINTENANCE MODE ── */
-    #maintenance-overlay {
-      display: none;
-      position: fixed; inset: 0; z-index: 99999;
-      background: var(--ink);
-      flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center;
-      padding: 2rem;
-    }
-    #maintenance-overlay.active { display: flex; }
-    .maint-glow {
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 70% 60% at 50% 40%, rgba(14,124,123,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(212,168,67,0.07) 0%, transparent 50%);
-    }
-    .maint-content { position: relative; z-index: 1; max-width: 560px; }
-    .maint-emblem {
-      width: 72px; height: 72px;
-      border: 1.5px solid var(--gold);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 28px; margin: 0 auto 2rem;
-      position: relative;
-    }
-    .maint-emblem::before {
-      content: ''; position: absolute; inset: 6px;
-      border: 1px solid rgba(212,168,67,0.25); border-radius: 50%;
-    }
-    .maint-label {
-      font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--teal-lt); font-weight: 600; margin-bottom: 1.2rem;
-    }
-    .maint-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 600; color: var(--white); line-height: 1.1; margin-bottom: 1.5rem;
-    }
-    .maint-title em { font-style: italic; color: var(--gold); }
-    .maint-body {
-      font-size: 0.95rem; color: rgba(253,250,246,0.55);
-      line-height: 1.8; font-weight: 300; margin-bottom: 2.5rem;
-    }
-    .maint-contact {
-      display: inline-flex; align-items: center; gap: 10px;
-      border: 1px solid rgba(212,168,67,0.25);
-      border-radius: 4px; padding: 12px 24px;
-      color: var(--gold-lt); font-size: 0.85rem; text-decoration: none;
-      transition: border-color 0.25s, background 0.25s;
-    }
-    .maint-contact:hover { border-color: var(--gold); background: rgba(212,168,67,0.06); }
-    .maint-footer {
-      margin-top: 3rem; font-size: 0.65rem;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      color: rgba(253,250,246,0.2);
-    }
-
-    /* ── SCROLL REVEAL ── */
-    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    /* ── REVEAL ── */
+    .reveal { opacity:0; transform:translateY(40px); transition:opacity 0.8s ease,transform 0.8s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 1000px) {
-      .hero-right { display: none; }
-      .about-layout, .why-layout, .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
-      .services-grid { grid-template-columns: 1fr 1fr; }
-      .updates-grid { grid-template-columns: 1fr 1fr; }
-      .post.featured { grid-row: auto; }
+    @media (max-width:1000px) {
+      .hero-right { display:none; }
+      .about-layout, .why-layout { grid-template-columns:1fr; gap:3rem; }
+      .services-grid { grid-template-columns:1fr 1fr; }
+      .post-solo { grid-template-columns:1fr; }
+      .post-solo .post-thumb { height:220px !important; }
     }
-    @media (max-width: 640px) {
-      .nav-links { display: none; }
-      .services-grid, .updates-grid { grid-template-columns: 1fr; }
-      .why-nums { grid-template-columns: 1fr 1fr; }
-      section { padding: 80px 6%; }
-      .hero-content { padding: 120px 6% 60px; }
-      .hero-bar { flex-direction: column; }
-      .hero-bar-item { border-right: none; border-bottom: 1px solid rgba(212,168,67,0.1); }
+    @media (max-width:640px) {
+      .nav-links { display:none; }
+      .services-grid { grid-template-columns:1fr; }
+      .why-nums { grid-template-columns:1fr 1fr; }
+      section { padding:80px 6%; }
+      .hero-content { padding:120px 6% 60px; }
+      .hero-bar { flex-direction:column; }
+      .hero-bar-item { border-right:none; border-bottom:1px solid rgba(212,168,67,0.1); }
     }
   </style>
 </head>
@@ -696,32 +236,24 @@
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- ═══════════════════════════════════════════════
-       MAINTENANCE MODE OVERLAY
-       To enable:  set MAINTENANCE = true  below
-       To disable: set MAINTENANCE = false below
-       Then save & push to GitHub — done!
-  ═══════════════════════════════════════════════ -->
-  <div id="maintenance-overlay">
-    <div class="maint-glow"></div>
-    <div class="maint-content">
-      <div class="maint-emblem">✈</div>
-      <div class="maint-label">🔧 Scheduled Maintenance</div>
-      <h1 class="maint-title">We'll Be Back <em>Shortly</em></h1>
-      <p class="maint-body">
-        Our website is currently undergoing scheduled maintenance and improvements. We apologise for any inconvenience. Please check back soon — we won't be long!
-      </p>
-      <a href="mailto:skyways@slt.lk" class="maint-contact">
-        ✉️ &nbsp; Reach us at skyways@slt.lk
-      </a>
-      <div class="maint-footer">Skyways Travel Solutions Pvt Ltd · Est. 1988 · Sri Lanka 🇱🇰</div>
+  <!-- DISCLAIMER MODAL -->
+  <div id="disclaimer-modal">
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close-btn">✕</button>
+      <img src="logo.jpeg" alt="Skyways Logo" style="height:44px;width:auto;background:white;padding:2px 6px;border-radius:3px;object-fit:contain;margin-bottom:1.5rem;display:block;" />
+      <p style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--teal-lt);font-weight:600;margin-bottom:0.8rem;">Legal Disclaimer</p>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:var(--gold-lt);margin-bottom:1.2rem;line-height:1.3;">One Name. One Company. Since 1988.</h2>
+      <p style="font-size:0.88rem;color:rgba(253,250,246,0.65);line-height:1.8;font-weight:300;margin-bottom:1rem;">Skyways Travel Solutions Pvt Ltd is the sole authorised travel company lawfully operating under this name in Sri Lanka. We have been established since 1988 and hold all rights to this trading name.</p>
+      <p style="font-size:0.88rem;color:rgba(253,250,246,0.65);line-height:1.8;font-weight:300;margin-bottom:1rem;">We are not affiliated with, nor do we endorse, any other individual, agency, or entity operating under a similar or identical name. Skyways Travel Solutions Pvt Ltd shall not be held responsible for any transactions, dealings, or representations made by any unauthorised party using our name.</p>
+      <p style="font-size:0.88rem;color:rgba(253,250,246,0.65);line-height:1.8;font-weight:300;margin-bottom:2rem;">For verification, please contact us directly at <a href="mailto:skyways@slt.lk" style="color:var(--teal-lt);">skyways@slt.lk</a> or call <strong style="color:rgba(253,250,246,0.8);">+94 11 250 5430</strong>.</p>
+      <button onclick="document.getElementById('disclaimer-modal').classList.remove('active');" style="background:var(--teal);color:white;border:none;padding:12px 28px;border-radius:3px;font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;cursor:pointer;">Close</button>
     </div>
   </div>
 
   <!-- NAV -->
   <nav id="nav">
     <a href="#" class="nav-brand">
-      <img src="logo.jpeg" alt="Skyways Travel Solutions Logo" class="nav-logo-img" />
+      <div class="nav-emblem">✈</div>
       <div class="nav-wordmark">
         Skyways Travel Solutions
         <small>Est. 1988 · Sri Lanka 🇱🇰</small>
@@ -742,7 +274,6 @@
     <div class="hero-stripe"></div>
     <div class="hero-bg-text">SKYWAYS</div>
     <div class="particles" id="particles"></div>
-
     <div class="hero-content">
       <div class="hero-left">
         <div class="hero-pill">
@@ -754,17 +285,12 @@
           <strong>With Confidence</strong><br/>
           <em>&amp; Care</em>
         </h1>
-        <p class="hero-sub">
-          For over 36 years, Skyways Travel Solutions has been crafting journeys across the globe — from serene beach escapes and rugged adventures, to seamless corporate travel and spiritual pilgrimages.
-        </p>
+        <p class="hero-sub">For over 36 years, Skyways Travel Solutions has been crafting journeys across the globe — from serene beach escapes and rugged adventures, to seamless corporate travel and spiritual pilgrimages.</p>
         <div class="hero-actions">
           <a href="#services" class="btn-primary"><span>Our Services</span></a>
           <a href="#contact" class="btn-ghost">Get in Touch</a>
         </div>
-        <div class="sl-tag">
-          <span>🦁</span>
-          <span>Proudly Sri Lankan · Serving the World</span>
-        </div>
+        <div class="sl-tag"><span>🦁</span><span>Proudly Sri Lankan · Serving the World</span></div>
       </div>
       <div class="hero-right">
         <div class="hero-stat-card"><div class="stat-n">36+</div><div class="stat-l">Years of Service</div></div>
@@ -773,7 +299,6 @@
         <div class="hero-stat-card"><div class="stat-n">24/7</div><div class="stat-l">Customer Support</div></div>
       </div>
     </div>
-
     <div class="hero-bar">
       <div class="hero-bar-item"><div class="hbi-icon">🏖️</div><div class="hbi-text"><strong>Leisure &amp; Holidays</strong>Tailored for every budget</div></div>
       <div class="hero-bar-item"><div class="hbi-icon">💼</div><div class="hbi-text"><strong>Business Travel</strong>Seamless corporate solutions</div></div>
@@ -785,17 +310,17 @@
   <!-- ABOUT -->
   <section id="about">
     <div class="about-layout">
-      <div class="about-text-side reveal">
+      <div class="reveal">
         <p class="label">Our Story</p>
         <h2 class="title">36 Years of Taking <em>Sri Lanka to the World</em></h2>
         <div class="rule"></div>
         <p class="body-text">Founded in 1988, Skyways Travel Solutions began as a passionate small venture with one mission: to make world-class travel accessible to every Sri Lankan. Over three and a half decades, we've grown into one of Sri Lanka's most trusted travel companies — but our heart remains the same.</p>
         <blockquote class="about-quote">"We don't just book trips. We craft experiences that become lifelong memories."</blockquote>
-        <p class="body-text">From our offices in Sri Lanka, we serve travellers across every category — families seeking beach holidays, executives needing flawless business trips, adventurers chasing thrills, and pilgrims seeking peace. Every journey we plan carries the same dedication and personal touch.</p>
+        <p class="body-text">From our offices in Colombo, we serve travellers across every category — families seeking beach holidays, executives needing flawless business trips, adventurers chasing thrills, and pilgrims seeking peace.</p>
       </div>
       <div class="reveal">
         <div class="about-main-card">
-          <div class="about-card-label">Established · Sri Lanka · 1988</div>
+          <div class="about-card-label">Established · Colombo, Sri Lanka · 1988</div>
           <div class="about-card-title">A Legacy Built on Trust &amp; Passion</div>
           <p>From a small office in 1988 to a company that has touched over 50,000 lives, Skyways has always put people before profit. Our team of experienced travel professionals brings decades of combined expertise to every single booking.</p>
         </div>
@@ -819,10 +344,10 @@
     </div>
     <div class="services-grid reveal">
       <div class="svc"><div class="svc-num">01</div><span class="svc-icon">🏖️</span><h3>Leisure &amp; Holidays</h3><p>Beach escapes, family holidays, romantic getaways — personalised packages crafted around your dream, budget, and destination.</p><div class="svc-arrow">Enquire →</div></div>
-      <div class="svc"><div class="svc-num">02</div><span class="svc-icon">🧭</span><h3>Adventure Tours</h3><p>Treks, safaris, river expeditions, and wilderness journeys. For those who seek the road less travelled and stories worth telling.</p><div class="svc-arrow">Enquire →</div></div>
+      <div class="svc"><div class="svc-num">02</div><span class="svc-icon">🧭</span><h3>Adventure Tours</h3><p>Treks, safaris, river expeditions, and wilderness journeys. For those who seek the road less travelled.</p><div class="svc-arrow">Enquire →</div></div>
       <div class="svc"><div class="svc-num">03</div><span class="svc-icon">💼</span><h3>Business Travel</h3><p>Seamless corporate travel management — flights, hotels, transfers, and itinerary planning for your entire team.</p><div class="svc-arrow">Enquire →</div></div>
       <div class="svc"><div class="svc-num">04</div><span class="svc-icon">✈️</span><h3>Flight Ticketing</h3><p>Domestic and international air ticketing with the best available fares across all major airlines worldwide.</p><div class="svc-arrow">Enquire →</div></div>
-      <div class="svc"><div class="svc-num">05</div><span class="svc-icon">🛂</span><h3>Visa Assistance</h3><p>Expert visa guidance for tourist, business, and transit visas across all major destinations — we handle the paperwork.</p><div class="svc-arrow">Enquire →</div></div>
+      <div class="svc"><div class="svc-num">05</div><span class="svc-icon">🛂</span><h3>Visa Assistance</h3><p>Expert visa guidance for tourist, business, and transit visas across all major destinations worldwide.</p><div class="svc-arrow">Enquire →</div></div>
       <div class="svc"><div class="svc-num">06</div><span class="svc-icon">🚢</span><h3>Cruises &amp; Special Journeys</h3><p>Luxury cruises, pilgrimages, group tours, and milestone travel — because some journeys deserve to be extraordinary.</p><div class="svc-arrow">Enquire →</div></div>
     </div>
   </section>
@@ -839,12 +364,12 @@
     </div>
     <div class="updates-grid-single reveal">
       <div class="post post-solo">
-        <div class="post-thumb t2" style="height:320px; font-size:6rem;">🇹🇭</div>
+        <div class="post-thumb t2" style="font-size:6rem;">🇹🇭</div>
         <div class="post-body">
           <div class="post-tag">✨ Featured Tour · End-to-End Guided</div>
           <h3>Thailand Uncovered — A Complete Guided Journey from Colombo</h3>
-          <p>From the golden temples of Bangkok to the turquoise waters of Krabi, the night markets of Chiang Mai to the shores of Koh Samui — Skyways takes you through the very best of Thailand, end to end, with expert guides by your side every step of the way. Flights, hotels, transfers, and experiences all taken care of. All you need to do is show up and explore.</p>
-          <p style="margin-top:1rem; color: rgba(253,250,246,0.35); font-size:0.8rem;">Full itinerary and dates coming soon. Contact us to register your interest.</p>
+          <p>From the golden temples of Bangkok to the turquoise waters of Krabi, the night markets of Chiang Mai to the shores of Koh Samui — Skyways takes you through the very best of Thailand, end to end, with expert guides by your side every step of the way. Flights, hotels, transfers, and experiences all taken care of.</p>
+          <p style="margin-top:1rem;color:rgba(253,250,246,0.35);font-size:0.8rem;">Full itinerary and dates coming soon. Contact us to register your interest.</p>
           <div class="post-date">Coming Soon · 2025</div>
         </div>
       </div>
@@ -880,7 +405,7 @@
       <p class="label" style="color:var(--teal-lt)">Find Us</p>
       <h2 class="title title-light">Let's Plan Your <em>Next Journey</em></h2>
       <div class="rule rule-gold"></div>
-      <p class="body-text body-text-light">We'd love to hear from you. Our friendly team is always ready to help plan your perfect trip.</p>
+      <p class="body-text body-text-light">We'd love to hear from you. Our friendly team is always ready to help.</p>
     </div>
     <div class="contact-layout">
       <div class="reveal">
@@ -891,13 +416,12 @@
           <div class="ci"><div class="ci-icon">🕐</div><div><div class="ci-label">Office Hours</div><div class="ci-val">Mon – Fri: 9:00 AM – 6:00 PM<br/>Saturday: 9:00 AM – 1:00 PM</div></div></div>
         </div>
         <div class="social-row">
-          <a href="https://www.facebook.com/skywayscmb/" class="social-btn" title="Facebook">📘</a>
+          <a href="https://www.facebook.com/skywayscmb/" class="social-btn" title="Facebook" target="_blank">📘</a>
           <a href="#" class="social-btn" title="Instagram">📸</a>
           <a href="#" class="social-btn" title="WhatsApp">💬</a>
           <a href="#" class="social-btn" title="LinkedIn">💼</a>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -905,9 +429,9 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <img src="logo.jpeg" alt="Skyways Logo" style="height:36px;width:auto;border-radius:3px;background:white;padding:2px 5px;object-fit:contain;margin-bottom:6px;display:block;" />
+        <img src="logo.jpeg" alt="Skyways Logo" style="height:34px;width:auto;background:white;padding:2px 5px;border-radius:3px;object-fit:contain;margin-bottom:6px;display:block;" />
         Skyways Travel Solutions Pvt Ltd
-        <span>🇱🇰 Established 1988 · Sri Lanka</span>
+        <span>🇱🇰 Established 1988 · Colombo, Sri Lanka</span>
       </div>
       <ul class="footer-nav">
         <li><a href="#about">About</a></li>
@@ -915,41 +439,14 @@
         <li><a href="#updates">Updates</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <div class="footer-copy">© 2026 Skyways Travel Solutions Pvt Ltd. All rights reserved. · <a href="#" onclick="document.getElementById('disclaimer-modal').classList.add('active');return false;" style="color:rgba(253,250,246,0.35);text-decoration:underline;font-size:0.72rem;">Disclaimer</a></div>
+      <div class="footer-copy">
+        © 2026 Skyways Travel Solutions Pvt Ltd. All rights reserved. ·
+        <a href="#" id="disclaimer-link">Disclaimer</a>
+      </div>
     </div>
   </footer>
 
-  <!-- DISCLAIMER MODAL -->
-  <div id="disclaimer-modal" style="display:none;position:fixed;inset:0;z-index:99998;align-items:center;justify-content:center;padding:2rem;background:rgba(10,15,30,0.85);backdrop-filter:blur(8px);">
-    <div style="background:#0f1f35;border:1px solid rgba(212,168,67,0.25);border-radius:8px;max-width:560px;width:100%;padding:3rem;position:relative;">
-      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#0e7c7b,#d4a843);border-radius:8px 8px 0 0;"></div>
-      <img src="logo.jpeg" alt="Skyways Logo" style="height:48px;width:auto;background:white;padding:3px 8px;border-radius:4px;object-fit:contain;margin-bottom:1.5rem;display:block;" />
-      <p style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#14a8a7;font-weight:600;margin-bottom:0.8rem;">Legal Disclaimer</p>
-      <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:#ecc96a;margin-bottom:1.2rem;line-height:1.3;">One Name. One Company. Since 1988.</h2>
-      <p style="font-size:0.88rem;color:rgba(253,250,246,0.65);line-height:1.8;font-weight:300;margin-bottom:1rem;">Skyways Travel Solutions Pvt Ltd is the sole authorised travel company lawfully operating under this name in Sri Lanka. We have been established since 1988 and hold all rights to this trading name.</p>
-      <p style="font-size:0.88rem;color:rgba(253,250,246,0.65);line-height:1.8;font-weight:300;margin-bottom:1rem;">We are not affiliated with, nor do we endorse, any other individual, agency, or entity operating under a similar or identical name. Skyways Travel Solutions Pvt Ltd shall not be held responsible for any transactions, dealings, or representations made by any unauthorised party using our name.</p>
-      <p style="font-size:0.88rem;color:rgba(253,250,246,0.65);line-height:1.8;font-weight:300;margin-bottom:2rem;">For verification or enquiries, please contact us directly at <a href="mailto:skyways@slt.lk" style="color:#14a8a7;">skyways@slt.lk</a> or call <strong style="color:rgba(253,250,246,0.8);">+94 11 250 5430</strong>.</p>
-      <button onclick="document.getElementById('disclaimer-modal').classList.remove('active');" style="background:#0e7c7b;color:white;border:none;padding:12px 28px;border-radius:3px;font-size:0.82rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='#14a8a7'" onmouseout="this.style.background='#0e7c7b'">Close</button>
-    </div>
-  </div>
-
-
-    // ═══════════════════════════════════════════
-    // MAINTENANCE MODE — change false to true to
-    // activate, then save & push to GitHub
-    const MAINTENANCE = false;
-    // ═══════════════════════════════════════════
-    if (MAINTENANCE) {
-      document.getElementById('maintenance-overlay').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    // Disclaimer modal
-    const disclaimerModal = document.getElementById('disclaimer-modal');
-    disclaimerModal.addEventListener('click', function(e) {
-      if (e.target === disclaimerModal) disclaimerModal.style.display = 'none';
-    });
-
+  <script>
     // Custom cursor
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
@@ -971,7 +468,7 @@
       document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
     });
 
-    // Floating particles
+    // Particles
     const pc = document.getElementById('particles');
     for (let i = 0; i < 30; i++) {
       const p = document.createElement('div');
@@ -983,13 +480,17 @@
     // Scroll reveal
     const obs = new IntersectionObserver(entries => {
       entries.forEach((e, i) => {
-        if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 80);
-          obs.unobserve(e.target);
-        }
+        if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); obs.unobserve(e.target); }
       });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // Disclaimer modal — shows on page load
+    const modal = document.getElementById('disclaimer-modal');
+    window.addEventListener('load', () => modal.classList.add('active'));
+    document.getElementById('disclaimer-link').addEventListener('click', e => { e.preventDefault(); modal.classList.add('active'); });
+    document.getElementById('modal-close-btn').addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); });
   </script>
 </body>
 </html>
