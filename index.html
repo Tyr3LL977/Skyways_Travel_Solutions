@@ -224,10 +224,55 @@
       .nav-links { display:none; }
       .services-grid { grid-template-columns:1fr; }
       .why-nums { grid-template-columns:1fr 1fr; }
-      section { padding:80px 6%; }
-      .hero-content { padding:120px 6% 60px; }
+      section { padding:70px 5%; }
+      .hero-content { padding:100px 5% 50px; }
       .hero-bar { flex-direction:column; }
       .hero-bar-item { border-right:none; border-bottom:1px solid rgba(212,168,67,0.1); }
+
+      /* Modal mobile fix */
+      #disclaimer-modal { padding:0; align-items:flex-end; }
+      .modal-box {
+        padding:1.8rem 1.4rem;
+        border-radius:16px 16px 0 0;
+        max-height:88vh;
+        overflow-y:auto;
+        -webkit-overflow-scrolling:touch;
+        width:100%;
+      }
+      .modal-box h2 { font-size:1.3rem !important; }
+      .modal-box p { font-size:0.82rem !important; line-height:1.7 !important; }
+      .modal-close { top:1rem; right:1rem; }
+
+      /* Scroll reveal on mobile — less dramatic */
+      .reveal { transform:translateY(20px); }
+
+      /* Hero mobile */
+      .hero-title { font-size:2.6rem; }
+      .hero-sub { font-size:0.9rem; }
+      .hero-pill span { font-size:0.62rem; letter-spacing:0.1em; }
+      .hero-actions { flex-direction:column; }
+      .btn-primary, .btn-ghost { text-align:center; }
+
+      /* About mobile */
+      .about-quote { font-size:1.2rem; padding:1.2rem 0 1.2rem 1.2rem; }
+      .about-flags { grid-template-columns:1fr; }
+
+      /* Services mobile */
+      .svc { padding:2rem 1.5rem; }
+
+      /* Why mobile */
+      .why-point { flex-direction:column; gap:0.5rem; }
+      .wp-num { font-size:1.2rem; }
+
+      /* Footer mobile */
+      .footer-inner { flex-direction:column; align-items:flex-start; gap:1.5rem; }
+      .footer-nav { flex-wrap:wrap; gap:1rem; }
+    }
+
+    /* Hide cursor on touch devices */
+    @media (hover:none) {
+      .cursor, .cursor-ring { display:none; }
+      body { cursor:auto; }
     }
   </style>
 </head>
